@@ -4,7 +4,7 @@ import java.util.List;
 
 import pe.edu.upc.model.entity.Consumer;
 
-public interface ConsumerServer extends CrudService<Consumer, Integer>{
+public interface ConsumerService extends CrudService<Consumer, Integer>{
 	List<Consumer> findByNName(String name)throws Exception;
 	List<Consumer> findByNLastname(String lastName)throws Exception;
 }
