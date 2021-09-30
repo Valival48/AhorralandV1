@@ -10,12 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Consumer")
+@Table(name = "Consumer",
+	indexes= {@Index(columnList="NName", name="Consumer_index_NName"),
+			 @Index(columnList="NLastname", name="Consumer_index_NLastname")})
 @SequenceGenerator(name = "Consumer_consumer_id_seq", initialValue = 1, allocationSize = 1)
 public class Consumer {
     @Id

@@ -9,12 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PaymentType")
+@Table(name = "PaymentType",
+			indexes= {@Index(columnList="NPaymentType", name="PaymentType_index_NPaymentType")})
 @SequenceGenerator(name = "PaymentType_paymentType_id_seq", initialValue = 1, allocationSize = 1)
 public class PaymentType {
     @Id

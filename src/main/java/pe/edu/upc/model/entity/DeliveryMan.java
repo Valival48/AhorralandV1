@@ -9,12 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="DeliveryMan")
+@Table(name="DeliveryMan",
+indexes= {@Index(columnList="NDeliveryMan", name="DeliveryMan_index_NDeliveryMan")})
 @SequenceGenerator(name = "DeliveryMan_deliveryMan_id_seq", initialValue = 1, allocationSize = 1)
 public class DeliveryMan{
 	@Id

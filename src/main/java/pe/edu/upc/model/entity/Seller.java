@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,7 +18,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Sellers")
+@Table(name="Sellers",
+indexes= {@Index(columnList="NSeller", name="Seller_index_NSeller"),
+		  @Index(columnList="NLastname", name="Seller_index_NLastname")})
 @SequenceGenerator(name = "Seller_seller_id_seq", initialValue = 1, allocationSize = 1)
 public class Seller{
 	

@@ -9,12 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="IdentificationTypes")
+@Table(name="IdentificationTypes",
+indexes= {@Index(columnList="NIdentificationType", name="IdentificationType_index_NIdentificationType")})
 @SequenceGenerator(name = "IdentificationTypes_identificationTypes_id_seq", initialValue = 1, allocationSize = 1)
 public class IdentificationType{
 	

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -15,7 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="Product")
+@Table(name="Product",
+		indexes= {@Index(columnList="NProduct", name= "Product_index_NProduct")})
 @SequenceGenerator(name = "Product_product_id_seq", initialValue = 1, allocationSize = 1)
 public class Product {
 

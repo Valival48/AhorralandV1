@@ -2,11 +2,15 @@ package pe.edu.upc.model.repository.impl;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pe.edu.upc.model.entity.Discount;
 import pe.edu.upc.model.repository.DiscountRepository;
-
+@Named
+@ApplicationScoped
 public class DiscountRepositoryImpl implements DiscountRepository {
 
 	@PersistenceContext (unitName = "AhorralandV1")
