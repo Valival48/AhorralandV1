@@ -3,11 +3,14 @@ package pe.edu.upc.model.repository.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pe.edu.upc.model.entity.IdentificationType;
 import pe.edu.upc.model.repository.IdentificationTypeRepository;
-
+@Named
+@ApplicationScoped
 public class IdentificationTypeRepositoryImpl implements IdentificationTypeRepository {
 
 	@PersistenceContext (unitName = "AhorralandV1")

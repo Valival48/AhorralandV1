@@ -3,11 +3,14 @@ package pe.edu.upc.model.repository.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pe.edu.upc.model.entity.Sale;
 import pe.edu.upc.model.repository.SaleRepository;
-
+@Named
+@ApplicationScoped
 public class SaleRepositoryImpl implements SaleRepository {
 
 	@PersistenceContext (unitName = "AhorralandV1")
