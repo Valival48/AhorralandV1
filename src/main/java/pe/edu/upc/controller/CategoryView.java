@@ -76,7 +76,7 @@ public class CategoryView implements Serializable {
 			e.printStackTrace();
 		}
 		PrimeFaces.current().executeScript("PF('categoryDialog').hide()");
-        PrimeFaces.current().ajax().update("categiryDataTable");
+        PrimeFaces.current().ajax().update("categoryDataTable");
 	}
 	
 	public void deleteCategory() {

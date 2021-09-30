@@ -1,0 +1,118 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>ShippingCrud</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div class="card">
+			<p:dataTable id="shippingDataTable" var="shipping"  value="#{shippingView.shippings}"
+				value="#{shippingView.shippings}"
+				selection="#{shippingView.shippingsSelected}" reflow="true"
+				rowKey="#{shipping.id}" paginator="true" paginatorPosition="bottom"
+				rows="5" sortMode="single">
+				
+				<f:facet name="header">
+                <div class="table-header">
+                    <span style="font-weight: bold">SHIPPING</span>
+                    <span class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <p:inputText id="globalSearch" value="#{categoryView.categorySearch.type}" placeholder="Search"/>
+                    </span>
+                    <p:commandButton value="Search" icon="pi pi-check" actionListener="#{shippingView.searchShipping}"
+            			update="categoryDataTable" process="globalSearch @this"/>
+            		<p:commandButton value="Clean" icon="pi pi-check" actionListener="#{shippingView.getAllShipping}"
+            			update="shippingDataTable" process="@this"/>
+
+                </div>
+            </f:facet>
+				
+				
+				<p:column selectionMode="Multiple"
+					Style="width:16px;text-align:center" />
+					
+				<p:column headerText="Id">
+					<h:outputText value="#{shipping.idShipping}" />
+				</p:column>
+
+				<p:column headerText="DateShipping" sortBy="#{shipping.shippedDate}">
+					<h:outputText value="#{category.type}" />
+				</p:column>
+				
+				
+				 <p:column>
+            	<p:commandButton icon="pi pi-pencil" oncomplete="PF('categoryDialog').show()"
+            			styleClass="edit-button rounded-button ui-button-success" 
+            			update="@form:category-content" process="@this">
+            		<f:setPropertyActionListener value="#{category}" target="#{categoryView.categorySelected}"/>
+            		<p:resetInput target="@form:category-content"/>
+            	</p:commandButton>
+            	<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
+            			styleClass="rounded-button ui-button-danger" process="@this"
+            			oncomplete="PF('categoryDialog').show()">
+            		<f:setPropertyActionListener value="#{category}" target="#{categoryView.categorySelected}"/>
+            	</p:commandButton>
+            </p:column>
+            
+
+				<p:ajax event="rowSelectCheckbox"
+					update="category-button-delete category-button-edit" />
+				<p:ajax event="rowUnselectCheckbox"
+					update="category-button-delete category-button-edit" />
+				<p:ajax event="toggleSelect"
+					update="category-button-delete category-button-edit" />
+
+
+			<f:facet name="footer">
+            	<p:commandButton process="categoryDataTable" value="Registro" icon="pi pi-check" 
+            			actionListener="#{categoryView.createNew}" update="@form:category-content"
+            			oncomplete="PF('categoryDialog').show()" styleClass="ui-button-raised ui-button-success" />
+            	
+            	<p:commandButton id="category-button-edit" process="categoryDataTable" value="Editar" icon="pi pi-check" 
+            			actionListener="#{categoryView.editCategorySelected}" update="@form:category-content"
+            			oncomplete="PF('categoryDialog').show()" styleClass="ui-button-raised ui-button-help"
+            			disabled="#{!categoryView.hasCategorySelected()}" />
+            	
+            	<p:commandButton id="category-button-delete" process="categoryDataTable" value="Eliminar" icon="pi pi-check" 
+            			oncomplete="PF('categoryDialog').show()" styleClass="ui-button-raised ui-button-danger"
+            			disabled="#{!categoryView.hasCategoriesSelected()}" update="categoryDataTable" />
+            			
+				</f:facet>
+        </p:dataTable>
+		</div>
+		<p:dialog header="Category" widgetVar="categoryDialog" modal="true" 
+			showEffect="fade" minHeight="300" width="300" responsive="true">
+
+			<p:outputPanel id="category-content" class="ui-fluid">
+					<div class="p-field">
+						<p:outputLabel for="type">Name</p:outputLabel>
+						<p:inputText id="type"
+							value="#{categoryView.categorySelected.type}" required="true" />
+					</div>
+			</p:outputPanel>
+			<f:facet name="footer">
+				<p:commandButton value="Save" icon="pi pi-check"
+					actionListener="#{categoryView.saveCategory}"
+					update="category-content categoryDataTable "
+					process="category-content @this" />
+				<p:commandButton value="Cancel" icon="pi pi-times"
+					onclick="PF('categoryDialog').hide()"
+					class="ui-button-secondary" />
+			</f:facet>
+		</p:dialog>
+		
+		<p:confirmDialog id="prueba" widgetVar="deleteDialog" showEffect="fade" width="300"
+                     message="Eliminar categoria?" header="confirmar" severity="warn">
+        <p:commandButton value="Si" icon="pi pi-check" actionListener="#{categoryView.deleteCategory}"
+                         process="@this" oncomplete="PF('deleteDialog').hide()"
+                         update="categoryDataTable @form:messages" />
+        <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                         onclick="PF('deleteDialog').hide()"/>
+    </p:confirmDialog>
+    
+	</h:form>
+</h:body>
+</html>
