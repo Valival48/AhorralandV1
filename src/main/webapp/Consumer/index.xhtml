@@ -1,0 +1,143 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>ConsumerCrud</title>
+ </h:head>
+<h:body>
+
+	<h:form>
+		<div class="card">
+		<p:growl id="messages" showDetail="true"/>
+		
+			<p:dataTable id="consumerDataTable" var="consumer"
+				value="#{consumerView.consumers}"
+				selection="#{consumerView.consumersSelected}" reflow="true"
+				rowKey="#{consumer.id}" paginator="true" paginatorPosition="bottom"
+				rows="3" sortMode="single" allowUnsorting="true">
+
+
+
+				<f:facet name="header">
+                <div class="table-header">
+                    <span style="font-weight: bold">CONSUMER</span>
+                    <span class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <p:inputText id="globalSearch" value="#{consumerView.consumerSearch.name}" placeholder="Search"/>
+                    </span>
+                    <p:commandButton value="Search"  icon="pi pi-search" styleClass="rounded-button ui-button-help" style="margin-left: 10px;"
+                     actionListener="#{consumerView.searchConsumer}"
+            			update="consumerDataTable" process="globalSearch @this"/>
+            		<p:commandButton value="Clean" icon="pi pi-times" styleClass="rounded-button ui-button-help"  style="margin-left: 10px;" 
+            		actionListener="#{consumerView.getAllConsumer}"
+            			update="consumerDataTable" process="@this"/>
+
+                </div>
+            </f:facet>
+
+
+
+				<p:column selectionMode="Multiple"
+					style="width:16px;text-align:center" />
+				<p:column headerText="Id">
+					<h:outputText value="#{consumer.id}" />
+				</p:column>
+
+				<p:column headerText="Name" sortBy="#{consumer.name}">
+					<h:outputText value="#{consumer.name}" />
+				</p:column>
+
+				<p:column headerText="Lastname" sortBy="#{consumer.lastName}">
+					<h:outputText value="#{consumer.lastName}" />
+				</p:column>
+
+				<p:column headerText="Identificacion"
+					sortBy="#{consumer.identification}">
+					<h:outputText value="#{consumer.identification}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{consumer.email}" />
+				</p:column>
+
+				<p:column headerText="Telefono">
+					<h:outputText value="#{consumer.phoneNumber}" />
+				</p:column>
+
+
+				<p:ajax event="rowSelectCheckbox"
+					update="consumer-button-delete consumer-button-edit" />
+				<p:ajax event="rowUnselectCheckbox"
+					update="consumer-button-delete consumer-button-edit" />
+				<p:ajax event="toggleSelect"
+					update="consumer-button-delete consumer-button-edit" />
+
+				<f:facet name="footer">
+					<p:commandButton process="consumerDataTable" value="New"
+					actionListener="#{consumerView.createNew()}" update="@form:consumer-content"
+						icon="pi pi-check"  oncomplete="PF('consumerDialog').show()"
+						styleClass="rounded-button ui-button-help"/>
+
+					<p:commandButton process="consumerDataTable" value="View"
+						icon="pi pi-check" oncomplete="PF('consumerDialog').show()"
+						styleClass="rounded-button ui-button-help" />
+
+					<p:commandButton id="consumer-button-edit"
+						process="consumerDataTable" value="Edit" icon="pi pi-check"
+						actionListener="#{consumerView.editConsumerSelected}" update="@form:consumer-content"
+						oncomplete="PF('consumerDialog').show()"
+						styleClass="rounded-button ui-button-help"
+						disabled="#{!consumerView.hasConsumerSelected()}" />
+
+
+					<p:commandButton id="consumer-button-delete"
+						process="consumerDataTable" value="Delete" icon="pi pi-check"
+						oncomplete="PF('consumerDialog').show()"
+						styleClass="rounded-button ui-button-help"
+						disabled="#{!consumerView.hasConsumersSelected()}" update="consumerDataTable" />
+				</f:facet>
+			</p:dataTable>
+
+		</div>
+		<p:dialog header="Consumer" widgetVar="consumerDialog" modal="true" 
+			showEffect="fade" minHeight="300" width="300" responsive="true">
+			
+			<div class="p-field">
+                        <p:outputLabel for="lastName">Lastname</p:outputLabel>
+                        <p:inputText id="lastName" value="#{consumerView.consumerSelected.lastName}" required="true"/>
+                        </div>
+		
+		<p:outputPanel id="consumer-content" class="ui-fluid">
+					<div class="p-field">
+						<p:outputLabel for="name">Name</p:outputLabel>
+						<p:inputText id="name"
+							value="#{consumerView.consumerSelected.name}" required="true" />
+					</div>
+			</p:outputPanel>
+		
+	
+			<f:facet name="footer">
+				<p:commandButton value="Save" icon="pi pi-check"
+					actionListener="#{consumerView.saveConsumer}"
+					update="consumer-content consumerDataTable "
+					process="consumer-content @this" />
+				<p:commandButton value="Cancel" icon="pi pi-times"
+					onclick="PF('consumerDialog').hide()"
+					class="ui-button-secondary" />
+			</f:facet>
+		</p:dialog>
+		
+		<p:confirmDialog id="prueba" widgetVar="deleteDialog" showEffect="fade" width="300"
+                     message="Eliminar ?" header="confirmar" severity="warn">
+        <p:commandButton value="Si" icon="pi pi-check" actionListener="#{consumerView.deleteConsumer}"
+                         process="@this" oncomplete="PF('deleteDialog').hide()"
+                         update="consumerDataTable @form:messages" />
+        <p:commandButton value="No" name="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                         onclick="PF('deleteDialog').hide()"/>
+    </p:confirmDialog>
+    
+	</h:form>
+</h:body>
+</html>

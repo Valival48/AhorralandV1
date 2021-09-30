@@ -17,8 +17,6 @@ import pe.edu.upc.business.crud.ShippingService;
 import pe.edu.upc.model.entity.Shipping;
 
 
-
-
 @Named("shippingView")
 @ViewScoped
 public class ShippingView  implements Serializable {
@@ -48,7 +46,7 @@ public class ShippingView  implements Serializable {
 		return true;
 	}
 
-	public boolean hasCategorySelected() {
+	public boolean hasShippingSelected() {
 		if(shippingsSelected.size()==1) {
 			return true;
 		}
@@ -59,7 +57,7 @@ public class ShippingView  implements Serializable {
 		shippingSelected=new Shipping();
 	}
 	
-	public void editCategorySelected() {
+	public void editShippingSelected() {
 		shippingSelected = shippingsSelected.get(0);
 	}
 	
@@ -133,13 +131,14 @@ public class ShippingView  implements Serializable {
 		this.shippingsSelected = shippingsSelected;
 	}
 
-	public Shipping getCategorySearch() {
+	public Shipping getShippingSearch() {
 		return shippingSearch;
 	}
 
 	public void setShippingSearch(Shipping shippingSearch) {
 		this.shippingSearch = shippingSearch;
 	}
-	
+
+
 	
 }

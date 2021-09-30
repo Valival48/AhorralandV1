@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>IdentificationTypeCrud</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div class="card">
+			<p:dataTable id="identificationTypeDataTable" var="identificationType" value="#{identificationTypeView.identificationTypes}"
+					selection="#{identificationTypeView.identificationTypesSelected}"
+					rowKey="#{identificationType.cIdentificationType}" paginator = "true" paginatorPosition="bottom"
+					rows="2" sortMode="single" allowUnsorting="true">
+					
+					
+				<p:column selectionMode="Multiple" style="width:16px;text-align:center" />
+				<p:column headerText="Id" sortBy="#{identificationType.nIdentificationType}">
+					<h:outputText value="#{identificationType.cIdentificationType}" />
+				</p:column>
+
+				<p:column headerText="Name" sortBy="#{identificationType.nIdentificationType}">
+					<h:outputText value="#{identificationType.nIdentificationType}" />
+				</p:column>
+				
+				<p:ajax event="rowSelectCheckbox" update="identificationType-button-delete identificationType-button-edit" />
+				<p:ajax event="rowUnselectCheckbox" update="identificationType-button-delete identificationType-button-edit" />
+				<p:ajax event="toggleSelect" update="identificationType-button-delete identificationType-button-edit" />
+				
+				<f:facet name="header">
+					<p:commandButton process="identificationTypeDataTable" value = "New" icon="pi pi-file" style="margin-left: 10px;" 
+						oncomplete="PF('identificationTypeDialog').show()" styleClass="ui-button-raised ui-button-help"/>
+					
+					<p:commandButton id="identificationType-button-edit"  process="identificationTypeDataTable" value = "Edit" icon="pi pi-pencil" style="margin-left: 10px;"
+						oncomplete="PF('identificationTypeDialog').show()" styleClass="ui-button-raised ui-button-help"
+						disabled="#{!identificationTypeView.hasidentificationTypeSelected()}" update="@this" />
+						
+					<p:commandButton id="identificationType-button-delete" process="identificationTypeDataTable" value = "Delete" icon= "pi pi-trash" style="margin-left: 10px;"
+						oncomplete="PF('identificationTypeDialog').show()" styleClass="ui-button-raised ui-button-danger"
+						disabled="#{!identificationTypeView.hasidentificationTypesSelected()}" update="@this" />
+				</f:facet>
+			</p:dataTable>
+		</div>
+		<p:dialog header = "IdentificationType" widgetVar="identificationTypeDialog" modal = "true" showEffect="fade"
+					minHeight="300" width="300" responsive="true">
+				<p:outputPanel id="identificationType-content" class="ui-fluid">
+					<p:outputPanel rendered="#{not empty identificationTypeView.identificationTypeSelected}">
+						<div>
+							<p:outputLabel for="name">Name</p:outputLabel>
+							<p:inputText id="name" value = "#{identificationTypeView.identificationTypeSelected.nIdentificationType}"></p:inputText>
+						</div>	
+					</p:outputPanel>
+					<f:facet name="footer">
+						<p:commandButton value="Save" icon="pi pi-check" actionListener="#{crudView.saveIdentificationType}"
+										update="identificationType-content" process="identificationType-content @this"/>
+						<p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+										class="ui-button-secondary"/>
+					</f:facet>
+				</p:outputPanel>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

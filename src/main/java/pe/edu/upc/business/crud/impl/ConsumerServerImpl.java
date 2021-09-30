@@ -6,13 +6,13 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import pe.edu.upc.business.crud.ConsumerServer;
+import pe.edu.upc.business.crud.ConsumerService;
 import pe.edu.upc.model.entity.Consumer;
 import pe.edu.upc.model.repository.ConsumerRepository;
 import pe.edu.upc.model.repository.JpaRepository;
 @Named
 @ApplicationScoped
-public class ConsumerServerImpl implements ConsumerServer {
+public class ConsumerServerImpl implements ConsumerService {
 
 	@Inject
 	private ConsumerRepository consumerRepository;

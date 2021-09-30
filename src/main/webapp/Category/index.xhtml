@@ -9,11 +9,14 @@
 <h:body>
 	<h:form>
 		<div class="card">
+		<p:growl id="messages" showDetail="true"/>
+		
 			<p:dataTable id="categoryDataTable" var="category"  value="#{categoryView.categories}"
-				value="#{categoryView.categories}"
+				
 				selection="#{categoryView.categoriesSelected}" reflow="true"
 				rowKey="#{category.id}" paginator="true" paginatorPosition="bottom"
 				rows="5" sortMode="single">
+				
 				
 				<f:facet name="header">
                 <div class="table-header">
@@ -22,9 +25,11 @@
                         <i class="pi pi-search"></i>
                         <p:inputText id="globalSearch" value="#{categoryView.categorySearch.type}" placeholder="Search"/>
                     </span>
-                    <p:commandButton value="Search" icon="pi pi-check" actionListener="#{categoryView.searchCategory}"
+                    <p:commandButton value="Search"  icon="pi pi-search" styleClass="ui-button-raised ui-button-help" style="margin-left: 10px;"
+                     actionListener="#{categoryView.searchCategory}"
             			update="categoryDataTable" process="globalSearch @this"/>
-            		<p:commandButton value="Clean" icon="pi pi-check" actionListener="#{categoryView.getAllCategory}"
+            		<p:commandButton value="Clean" icon="pi pi-times" styleClass="ui-button-raised ui-button-help" style="margin-left: 10px;" 
+            		actionListener="#{categoryView.getAllCategory}"
             			update="categoryDataTable" process="@this"/>
 
                 </div>
@@ -42,20 +47,6 @@
 					<h:outputText value="#{category.type}" />
 				</p:column>
 				
-				
-				 <p:column>
-            	<p:commandButton icon="pi pi-pencil" oncomplete="PF('categoryDialog').show()"
-            			styleClass="edit-button rounded-button ui-button-success" 
-            			update="@form:category-content" process="@this">
-            		<f:setPropertyActionListener value="#{category}" target="#{categoryView.categorySelected}"/>
-            		<p:resetInput target="@form:category-content"/>
-            	</p:commandButton>
-            	<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
-            			styleClass="rounded-button ui-button-danger" process="@this"
-            			oncomplete="PF('categoryDialog').show()">
-            		<f:setPropertyActionListener value="#{category}" target="#{categoryView.categorySelected}"/>
-            	</p:commandButton>
-            </p:column>
             
 
 				<p:ajax event="rowSelectCheckbox"
@@ -67,17 +58,17 @@
 
 
 			<f:facet name="footer">
-            	<p:commandButton process="categoryDataTable" value="Registro" icon="pi pi-check" 
-            			actionListener="#{categoryView.createNew}" update="@form:category-content"
-            			oncomplete="PF('categoryDialog').show()" styleClass="ui-button-raised ui-button-success" />
+            	<p:commandButton process="categoryDataTable" value="Registro" icon="pi pi-check "  style="margin-left: 350px;" 
+            			actionListener="#{categoryView.createNew()}" update="@form:category-content"
+            			oncomplete="PF('categoryDialog').show()" styleClass="ui-button-raised ui-button-help" />
             	
-            	<p:commandButton id="category-button-edit" process="categoryDataTable" value="Editar" icon="pi pi-check" 
+            	<p:commandButton id="category-button-edit" process="categoryDataTable" value="Editar" icon="pi pi-check" style="margin-left: 50px;"
             			actionListener="#{categoryView.editCategorySelected}" update="@form:category-content"
             			oncomplete="PF('categoryDialog').show()" styleClass="ui-button-raised ui-button-help"
             			disabled="#{!categoryView.hasCategorySelected()}" />
             	
-            	<p:commandButton id="category-button-delete" process="categoryDataTable" value="Eliminar" icon="pi pi-check" 
-            			oncomplete="PF('categoryDialog').show()" styleClass="ui-button-raised ui-button-danger"
+            	<p:commandButton id="category-button-delete" process="categoryDataTable" value="Eliminar" icon="pi pi-check" style="margin-left: 50px;"
+            			oncomplete="PF('categoryDialog').show()" styleClass="ui-button-raised ui-button-help"
             			disabled="#{!categoryView.hasCategoriesSelected()}" update="categoryDataTable" />
             			
 				</f:facet>

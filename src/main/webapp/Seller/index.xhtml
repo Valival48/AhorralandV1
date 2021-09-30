@@ -1,0 +1,132 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>SellerCrud</title>
+ </h:head>
+<h:body>
+
+	<h:form>
+		<div class="card">
+		<p:growl id="messages" showDetail="true"/>
+		
+			<p:dataTable id="sellerDataTable" var="seller"
+				value="#{sellerView.sellers}"
+				selection="#{sellerView.sellersSelected}" reflow="true"
+				rowKey="#{seller.nSeller}" paginator="true" paginatorPosition="bottom"
+				rows="3" sortMode="single" allowUnsorting="true">
+
+
+
+				<f:facet name="header">
+                <div class="table-header">
+                    <span style="font-weight: bold">SELLER</span>
+                    <span class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <p:inputText id="globalSearch" value="#{sellerView.sellerSearch.nSeller}" placeholder="Search"/>
+                    </span>
+                    <p:commandButton value="Search"  icon="pi pi-search" styleClass="rounded-button ui-button-help" style="margin-left: 10px;"
+                     actionListener="#{sellerView.searchSeller}"
+            			update="sellerDataTable" process="globalSearch @this"/>
+            		<p:commandButton value="Clean" icon="pi pi-times" styleClass="rounded-button ui-button-help"  style="margin-left: 10px;" 
+            		actionListener="#{sellerView.getAllSeller}"
+            			update="sellerDataTable" process="@this"/>
+
+                </div>
+            </f:facet>
+
+
+
+				<p:column selectionMode="Multiple"
+					style="width:16px;text-align:center" />
+				<p:column headerText="Id">
+					<h:outputText value="#{seller.cSeller}" />
+				</p:column>
+
+				<p:column headerText="Name" sortBy="#{seller.nSeller}">
+					<h:outputText value="#{seller.nSeller}" />
+				</p:column>
+
+				<p:column headerText="Lastname" sortBy="#{seller.nLastName}">
+					<h:outputText value="#{seller.nLastName}" />
+				</p:column>
+
+				
+
+
+				<p:ajax event="rowSelectCheckbox"
+					update="seller-button-delete seller-button-edit" />
+				<p:ajax event="rowUnselectCheckbox"
+					update="seller-button-delete seller-button-edit" />
+				<p:ajax event="toggleSelect"
+					update="seller-button-delete seller-button-edit" />
+
+				<f:facet name="footer">
+					<p:commandButton process="sellerDataTable" value="New"
+					actionListener="#{sellerView.createNew()}" update="@form:seller-content"
+						icon="pi pi-check"  oncomplete="PF('sellerDialog').show()"
+						styleClass="rounded-button ui-button-help"/>
+
+					<p:commandButton process="sellerDataTable" value="View"
+						icon="pi pi-check" oncomplete="PF('sellerDialog').show()"
+						styleClass="rounded-button ui-button-help" />
+
+					<p:commandButton id="seller-button-edit"
+						process="sellerDataTable" value="Edit" icon="pi pi-check"
+						actionListener="#{sellerrView.editSellerSelected}" update="@form:seller-content"
+						oncomplete="PF('sellerDialog').show()"
+						styleClass="rounded-button ui-button-help"
+						disabled="#{!sellerView.hasSellerSelected()}" />
+
+
+					<p:commandButton id="seller-button-delete"
+						process="sellerDataTable" value="Delete" icon="pi pi-check"
+						oncomplete="PF('sellerDialog').show()"
+						styleClass="rounded-button ui-button-help"
+						disabled="#{!sellerView.hasSellersSelected()}" update="sellerDataTable" />
+				</f:facet>
+			</p:dataTable>
+
+		</div>
+		<p:dialog header="Seller" widgetVar="sellerDialog" modal="true" 
+			showEffect="fade" minHeight="300" width="300" responsive="true">
+		
+		<div class="p-field">
+                        <p:outputLabel for="NSeller">Lastname</p:outputLabel>
+                        <p:inputText id="nSeller" value="#{consumerView.consumerSelected.lastName}" required="true"/>
+                        </div>
+                        
+		<p:outputPanel id="sellerr-content" class="ui-fluid">
+					<div class="p-field">
+						<p:outputLabel for="NSeller">nSeller</p:outputLabel>
+						<p:inputText id="name"
+							value="#{sellerView.sellerSelected.nSeller}" required="true" />
+					</div>
+			</p:outputPanel>
+		
+	
+			<f:facet name="footer">
+				<p:commandButton value="Save" icon="pi pi-check"
+					actionListener="#{sellerView.saveSeller}"
+					update="seller-content sellerDataTable "
+					process="seller-content @this" />
+				<p:commandButton value="Cancel" icon="pi pi-times"
+					onclick="PF('sellerDialog').hide()"
+					class="ui-button-secondary" />
+			</f:facet>
+		</p:dialog>
+		
+		<p:confirmDialog id="prueba" widgetVar="deleteDialog" showEffect="fade" width="300"
+                     message="Eliminar ?" header="confirmar" severity="warn">
+        <p:commandButton value="Si" icon="pi pi-check" actionListener="#{sellerView.deleteSeller}"
+                         process="@this" oncomplete="PF('deleteDialog').hide()"
+                         update="sellerDataTable @form:messages" />
+        <p:commandButton value="No" name="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                         onclick="PF('deleteDialog').hide()"/>
+    </p:confirmDialog>
+    
+	</h:form>
+</h:body>
+</html>
