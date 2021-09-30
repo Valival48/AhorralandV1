@@ -1,0 +1,232 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>AhorraLand</title>
+	<style type="text/css">
+button.ui-button {
+	margin-right: .5rem;
+	margin-left: .5rem;
+}
+
+.container {
+	display: flex;
+	justify-content: flex-star;
+	margin: 0;
+}
+
+.image {
+	width: 50%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.image-main {
+	background-image: url("img/nosotros.png");
+	height: 500px;
+	width: 500px;
+	background-size: cover;
+	float: right;
+}
+
+.image2 {
+	background-image: url("img/BeneficiosTrazado.jpg");
+	height: 695px;
+	width: 1500px;
+	background-size: cover;
+	float: left;
+	display: flex;
+}
+
+.image-proposito {
+	background-image: url("img/proposito.png");
+	height: 330px;
+	width: 520px;
+	margin-bottom: 700px;
+	float: right;
+	margin-right: 250px;
+}
+
+.imageFicio {
+	margin-top: 180px;
+	margin-bottom: 100px;
+	margin-left: 100px;
+	background-image: url("img/beneficios.png");
+	height: 295px;
+	width: 380px;
+	background-size: contain, cover;
+	float: left;
+}
+
+.image-nosotros {
+	background-image: url("img/trabajaconnosotros.png");
+	height: 650px;
+	width: 930px;
+	margin-top: 400px;
+	margin-left: 280;
+}
+
+.card-benefit {
+	margin-top: 250;
+	width: 50%;
+	margin-left: 120;
+	display: flex;
+	font-family: Calibri;
+	color: #FFFFFF;
+}
+
+.p-text-normal {
+	width: 50%;
+	margin: 0;
+	display: flex;
+	font-family: Calibri;
+}
+
+.card-item {
+	margin-bottom: 20px;
+	color: #5E17EB;
+	font-weight: 400;
+	text-align: justify;
+}
+
+.card-itemFin {
+	margin-top: 150px;
+	color: white;
+	font-weight: 500;
+	background-color: #5E17EB;
+	font-family: Calibri;
+}
+
+
+.card-itemProposito {
+	margin-top: 200px;
+	color: #5E17EB;
+	font-weight: 400;
+	text-align: justify;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 60%;
+	margin-left: 10%;
+}
+
+.button {
+	color: black;
+}
+
+.button-card {
+	margin-left: 40;
+	height: 500px;
+	width: 500px;
+	color: black;
+}
+
+p {
+	color: black;
+	font-family: Verdana;
+}
+
+.options {
+	
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<div align="left">
+			<h:graphicImage value="img/LogoSolo.png" height="13%" width="20%">
+			</h:graphicImage>
+		</div>
+		<p:menubar>
+
+			<p:submenu label="Nosotros">
+			</p:submenu>
+
+			<p:submenu label="Beneficios">
+			</p:submenu>
+
+			<p:submenu label="Proposito">
+			</p:submenu>
+
+			<p:submenu label="Nuestra comunidad">
+			</p:submenu>
+
+			<f:facet class="options" name="options">
+				<div class="ui-input-icon-left p-mr-2">
+					<i class="pi pi-fw pi-search" />
+					<p:inputText placeholder="Buscar" />
+				</div>
+
+				<p:button value="Registrarse"
+					styleClass="ui-button-help ui-button-flat" />
+				<p:button value="Ingresar"
+					styleClass="rounded-button ui-button-help" />
+
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<div class="container">
+		<div class="p-text-normal">
+			<div class="card" align="left">
+				<div class="card-item">
+					<font size='6'>Somos</font> <br></br> <br></br> <font size='4'>Una
+						StartUp especializada en la comunicación cómoda y segura entre los
+						supermercados y consumidores de productos alimenticios</font>
+				</div>
+				<p:button value="Registrarse"
+					styleClass="rounded-button ui-button-help" />
+			</div>
+
+		</div>
+		<div class="image">
+			<div class="image-main"></div>
+		</div>
+
+	</div>
+	<div class="image2">
+		<div class="imageFicio"></div>
+		<div class="card-benefit">
+			<div>
+				<font size='6'>Beneficios</font> <font size='5'><br></br> <br></br>Brindamos
+					oportunidades únicas de ahorro<br></br> en todas tus compras.</font>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="p-text-normal">
+			<div class="card" align="left">
+				<div class="card-itemProposito">
+					<font size='6'>Propósito</font> <br></br> <font size='4'>Trabajamos
+						junto a supermercados, recuperando productos alimenticios que se
+						encuentran fuera de temporada, con errores en el empaquetado o
+						próximos a vencer ofreciéndolos a una fracción de su valor
+						original</font>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="image-proposito"></div>
+		</div>
+	</div>
+	<div>
+		<div class="image-nosotros"></div>
+	</div>
+	<div>
+		
+			<div class="card-itemFin">
+				<font size='6'>Gracias por su visita!. Esperamos verte devuelta :D</font>
+			</div>
+		
+
+	</div>
+
+</h:body>
+</html>
